@@ -20,7 +20,7 @@
   --wa: #25d366;
   --radius: 16px;
   --shadow: 0 1px 2px rgba(11,22,38,.04), 0 8px 24px rgba(11,22,38,.06);
-  --shadow-lg: 0 30px 60px -20px rgba(7,26,51,.35);
+  --shadow-lg: 0 24px 40px -18px rgba(7,26,51,.35);
 }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -283,7 +283,7 @@ section { padding: 110px 0; }
 .legal li { margin-bottom: 6px; }
 
 /* Reveal on scroll */
-.reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
+.reveal { opacity: 0; transform: translateY(14px); transition: opacity .5s ease, transform .5s cubic-bezier(.2,.7,.2,1); }
 .reveal.in { opacity: 1; transform: none; }
 .no-js .reveal { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) {
@@ -328,17 +328,17 @@ section { padding: 110px 0; }
 
 /* Hero blobs */
 .blobs { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
-.blobs i { position: absolute; border-radius: 50%; filter: blur(70px); opacity: .45; }
-.blobs .b1 { width: 420px; height: 420px; background: #1fa463; left: -120px; top: 40%; animation: drift1 18s ease-in-out infinite; }
-.blobs .b2 { width: 380px; height: 380px; background: #2563eb; right: 5%; top: -120px; animation: drift2 22s ease-in-out infinite; }
-.blobs .b3 { width: 300px; height: 300px; background: #7ee2a8; right: 30%; bottom: -160px; opacity: .3; animation: drift3 26s ease-in-out infinite; }
+.blobs i { position: absolute; border-radius: 50%; opacity: .5; }
+.blobs .b1 { width: 640px; height: 640px; background: radial-gradient(circle, rgba(31,164,99,.85), rgba(31,164,99,0) 68%); left: -120px; top: 40%; }
+.blobs .b2 { width: 600px; height: 600px; background: radial-gradient(circle, rgba(37,99,235,.8), rgba(37,99,235,0) 68%); right: 5%; top: -120px; }
+.blobs .b3 { width: 480px; height: 480px; background: radial-gradient(circle, rgba(126,226,168,.8), rgba(126,226,168,0) 68%); right: 30%; bottom: -160px; opacity: .3; }
 @keyframes drift1 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(120px,-80px) scale(1.15); } }
 @keyframes drift2 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-140px,90px) scale(.9); } }
 @keyframes drift3 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(90px,-110px); } }
 
 /* Hero entrance */
 .hero .pill, .hero h1, .hero p.sub, .hero-cta, .hero-note, .hero .phone {
-  opacity: 0; transform: translateY(24px); animation: rise .9s cubic-bezier(.2,.7,.2,1) forwards;
+  opacity: 0; transform: translateY(24px); animation: rise .7s cubic-bezier(.2,.7,.2,1) forwards;
 }
 .hero h1 { animation-delay: .1s; } .hero p.sub { animation-delay: .25s; } .hero-cta { animation-delay: .4s; }
 .hero-note { animation-delay: .55s; } .hero .phone { animation-delay: .3s; transform: translateY(40px) rotate(2deg); }
@@ -347,10 +347,10 @@ section { padding: 110px 0; }
 /* Rotating word */
 .rotator { display: block; position: relative; white-space: nowrap; }
 .rotator .grad { display: inline-block; }
-.rotator .out { animation: wordOut .45s ease forwards; }
-.rotator .in { animation: wordIn .55s cubic-bezier(.2,.7,.2,1) forwards; }
-@keyframes wordOut { to { opacity: 0; transform: translateY(-0.4em); filter: blur(4px); } }
-@keyframes wordIn { from { opacity: 0; transform: translateY(0.45em); filter: blur(4px); } to { opacity: 1; transform: none; filter: none; } }
+.rotator .out { animation: wordOut .3s ease forwards; }
+.rotator .in { animation: wordIn .4s cubic-bezier(.2,.7,.2,1) forwards; }
+@keyframes wordOut { to { opacity: 0; transform: translateY(-0.4em); } }
+@keyframes wordIn { from { opacity: 0; transform: translateY(0.45em); } to { opacity: 1; transform: none; } }
 
 /* Live chat (JS-driven) */
 .wa-body.live { justify-content: flex-end; }
@@ -427,3 +427,6 @@ section { padding: 110px 0; }
 .scrolled .wordmark, .solid .wordmark { color: #14663e; }
 .scrolled .wordmark small, .solid .wordmark small { color: var(--ink); }
 .tagline { font-family: "Plus Jakarta Sans", sans-serif; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; font-size: 12px; color: var(--accent-2); margin-top: 18px; }
+
+/* Pause the hero's looping effects while it is off screen */
+.hero.paused .float-card { animation-play-state: paused; }

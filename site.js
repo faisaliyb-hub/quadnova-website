@@ -60,9 +60,9 @@
       entries.forEach(function (entry) {
         if (entry.isIntersecting) { show(entry.target); io.unobserve(entry.target); }
       });
-    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    }, { threshold: 0.08, rootMargin: '0px 0px -20px 0px' });
     items.forEach(function (el, i) {
-      el.style.transitionDelay = (i % 3) * 90 + 'ms';
+      el.style.transitionDelay = (i % 3) * 60 + 'ms';
       io.observe(el);
     });
   }
@@ -93,6 +93,14 @@
     });
   }
 
+  // Pause the hero's looping effects while it is scrolled out of view
+  var hero = document.querySelector('.hero');
+  if (hero && 'IntersectionObserver' in window) {
+    new IntersectionObserver(function (entries) {
+      hero.classList.toggle('paused', !entries[0].isIntersecting);
+    }).observe(hero);
+  }
+
   if (reduce) return;
 
   // Rotating headline word
@@ -109,8 +117,8 @@
         next.className = 'grad in';
         next.textContent = words[w];
         rot.replaceChild(next, cur);
-      }, 420);
-    }, 2600);
+      }, 300);
+    }, 2200);
   }
 
   // Live WhatsApp chat loop
@@ -174,30 +182,30 @@
   }
 
   async function play() {
-    await wait(1600);
+    await wait(700);
     chat.classList.add('live');
     var s = 0;
     for (;;) {
       Array.prototype.forEach.call(chat.children, function (c) { c.classList.add('leaving'); });
-      await wait(500);
+      await wait(350);
       chat.textContent = '';
       for (var i = 0; i < scripts[s].length; i++) {
         var step = scripts[s][i];
         if (step[0] === 'in') {
-          await wait(900);
+          await wait(550);
           add(bubble('in', step[1]));
         } else {
-          await wait(500);
+          await wait(250);
           var t = typing();
           add(t);
           if (status) { status.textContent = 'typing…'; status.classList.add('typing-label'); }
-          await wait(1100 + Math.min(step[1].length * 12, 900));
+          await wait(600 + Math.min(step[1].length * 6, 600));
           if (t.parentNode) chat.removeChild(t);
           if (status) { status.textContent = 'online'; status.classList.remove('typing-label'); }
           add(bubble('out', step[1]));
         }
       }
-      await wait(3200);
+      await wait(2400);
       s = (s + 1) % scripts.length;
     }
   }
