@@ -9,7 +9,7 @@
   // Header gets a hairline once the page scrolls and turns dark over dark sections; aurora fields drift (parallax)
   var header = document.querySelector('.site-header');
   var darks = Array.prototype.slice.call(document.querySelectorAll('.dark'));
-  var auroras = Array.prototype.slice.call(document.querySelectorAll('.hero .aurora, .legal-hero .aurora'));
+  var auroras = Array.prototype.slice.call(document.querySelectorAll('.hero .aurora, .legal-hero .aurora, .page-hero .aurora'));
   var ticking = false;
   function onScroll() {
     if (header) {
